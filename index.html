@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Registration</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to the Student Registration</h1>
+    <p>Register now to join our community and start your academic journey!</p>
+    <a href="#register" class="cta-btn">Register Now</a>
+  </section>
+
+  <!-- Registration Form Section -->
+  <section class="registration-form" id="register">
+    <div class="form-container">
+      <h2>🎓 Student Registration</h2>
+      
+      <form id="registration-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your Name">
+        </div>
+      
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="Your Email">
+        </div>
+      
+        <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required>
+        </div>
+      
+        <div class="form-group">
+          <label for="department">Department</label>
+          <select id="department" name="department" required>
+            <option value="">Select Department</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Business">Business</option>
+            <option value="Engineering">Engineering</option>
+          </select>
+        </div>
+      
+        <div class="form-group">
+            <label for="fileLink">Transcript Link (Google Drive)</label>
+            <input type="url" id="fileLink" name="fileLink" required placeholder=" your Transcript Link ">
+          </div>
+          
+      
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+      
+    </div>
+  </section>
+
+  <!-- EmailJS Script -->
+  <script>
+  emailjs.init("HSqhBtNwE-ubHdFYJ"); // ✅ Your real public key
+
+document.getElementById("registration-form").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  emailjs.sendForm("service_s524mpq", "template_adtgdcd", this)
+    .then(function() {
+      alert("🎉 Registration submitted! have a nice day!.");
+    }, function(error) {
+      alert("❌ Failed to send email: " + JSON.stringify(error));
+    });
+});
+
+</script>
+
+</body>
+</html>
