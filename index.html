@@ -60,21 +60,33 @@
   </section>
 
   <!-- EmailJS Script -->
-  <script>
-  emailjs.init("HSqhBtNwE-ubHdFYJ"); // ✅ Your real public key
+ <script>
+document.getElementById("registration-form").addEventListener("submit", async function(e) {
+  e.preventDefault();
 
-document.getElementById("registration-form").addEventListener("submit", function(event) {
-  event.preventDefault();
+  const formData = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    dob: document.getElementById("dob").value,
+    department: document.getElementById("department").value,
+    fileLink: document.getElementById("fileLink").value
+  };
 
-  emailjs.sendForm("service_s524mpq", "template_adtgdcd", this)
-    .then(function() {
-      alert("🎉 Registration submitted! have a nice day!.");
-    }, function(error) {
-      alert("❌ Failed to send email: " + JSON.stringify(error));
+  try {
+    const res = await fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
     });
+
+    const data = await res.json();
+    alert("🎉 " + data.message);
+  } catch (err) {
+    alert("❌ Error submitting form");
+  }
 });
-
 </script>
-
 </body>
 </html>
